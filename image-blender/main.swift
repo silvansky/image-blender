@@ -22,6 +22,12 @@ enum Method : String {
 	case MaxRed = "maxred"
 	case MaxGreen = "maxgreen"
 	case MaxBlue = "maxblue"
+
+	case MaxHue = "maxhue"
+	case MaxSaturation = "maxsaturation"
+
+	case MinHue = "minhue"
+	case MinSaturation = "minsaturation"
 }
 
 struct AccumulativeColor {
@@ -60,7 +66,7 @@ struct AccumulativeColor {
 }
 
 if Process.arguments.count < 3 {
-	print("Usage: \(Process.arguments[0]) input_file_list.txt output_file.png [min|max|mean|minred|mingreen|minblue|maxred|maxgreen|maxblue]")
+	print("Usage: \(Process.arguments[0]) input_file_list.txt output_file.png [min|max|mean|minred|mingreen|minblue|maxred|maxgreen|maxblue|minhue|minsaturation|maxhue|maxsaturation] [keep]")
 	exit(1)
 }
 
@@ -80,6 +86,16 @@ if Process.arguments.count > 3 {
 	method = _method
 } else {
 	print("Method is defaulted to \(method.rawValue)")
+}
+
+var keepIntermediateImages = false
+
+if Process.arguments.count > 4 {
+	if Process.arguments[4] == "keep" {
+		keepIntermediateImages = true
+	} else {
+		print("Ignoring unrecognized option \(Process.arguments[4])")
+	}
 }
 
 var imageFiles = [String]()
@@ -166,6 +182,22 @@ let processPool = {
 					if currentColor.blueComponent < nextColor.blueComponent {
 						firstImageRep.setColor(nextColor, atX: x, y: y)
 					}
+				case .MaxHue:
+					if currentColor.hueComponent < nextColor.hueComponent {
+						firstImageRep.setColor(nextColor, atX: x, y: y)
+					}
+				case .MaxSaturation:
+					if currentColor.saturationComponent < nextColor.saturationComponent {
+						firstImageRep.setColor(nextColor, atX: x, y: y)
+					}
+				case .MinHue:
+					if currentColor.hueComponent > nextColor.hueComponent {
+						firstImageRep.setColor(nextColor, atX: x, y: y)
+					}
+				case .MinSaturation:
+					if currentColor.saturationComponent > nextColor.saturationComponent {
+						firstImageRep.setColor(nextColor, atX: x, y: y)
+					}
 				}
 			}
 		}
@@ -185,6 +217,10 @@ for (i, imageFileName) in imageFiles.enumerate() {
 		if imagesPool.count >= imagesPoolSize {
 			processPool()
 			print("Processing: \(Int(Double(i) / Double(imageFiles.count) * 100.0))% done")
+			if keepIntermediateImages {
+				let tmpOutputFile = "\(outputFile)_tmp_\(i).png"
+				firstImageRep.representationUsingType(NSBitmapImageFileType.NSPNGFileType, properties: [:])!.writeToFile(tmpOutputFile, atomically: true);
+			}
 		}
 
 		imagesPool.append(nextImageRep)
