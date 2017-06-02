@@ -7,7 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A302BA111EE1D626006B2D4D /* BlendMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A302BA101EE1D626006B2D4D /* BlendMethod.swift */; };
 		A305A0341D08278B00888112 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = A305A0331D08278B00888112 /* main.swift */; };
+		A3FE0BB01EE1C70A004FC890 /* AccumulativeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BAF1EE1C70A004FC890 /* AccumulativeColor.swift */; };
+		A3FE0BB21EE1C734004FC890 /* Method.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BB11EE1C734004FC890 /* Method.swift */; };
+		A3FE0BB41EE1C891004FC890 /* MaxBrightnessMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BB31EE1C891004FC890 /* MaxBrightnessMethod.swift */; };
+		A3FE0BB61EE1CC9A004FC890 /* MinMaxMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BB51EE1CC9A004FC890 /* MinMaxMethod.swift */; };
+		A3FE0BB81EE1D0AD004FC890 /* MinBrightnessMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BB71EE1D0AD004FC890 /* MinBrightnessMethod.swift */; };
+		A3FE0BBA1EE1D14F004FC890 /* MinRedMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BB91EE1D14F004FC890 /* MinRedMethod.swift */; };
+		A3FE0BBC1EE1D18E004FC890 /* MinGreenMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BBB1EE1D18E004FC890 /* MinGreenMethod.swift */; };
+		A3FE0BBE1EE1D1C3004FC890 /* MinBlueMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BBD1EE1D1C3004FC890 /* MinBlueMethod.swift */; };
+		A3FE0BC01EE1D1DC004FC890 /* MaxRedMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BBF1EE1D1DC004FC890 /* MaxRedMethod.swift */; };
+		A3FE0BC21EE1D1F4004FC890 /* MaxGreenMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BC11EE1D1F4004FC890 /* MaxGreenMethod.swift */; };
+		A3FE0BC41EE1D207004FC890 /* MaxBlueMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BC31EE1D207004FC890 /* MaxBlueMethod.swift */; };
+		A3FE0BC61EE1D226004FC890 /* MaxHueMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BC51EE1D226004FC890 /* MaxHueMethod.swift */; };
+		A3FE0BC81EE1D299004FC890 /* MaxSaturationMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BC71EE1D299004FC890 /* MaxSaturationMethod.swift */; };
+		A3FE0BCA1EE1D2C2004FC890 /* MinHueMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BC91EE1D2C2004FC890 /* MinHueMethod.swift */; };
+		A3FE0BCC1EE1D2DB004FC890 /* MinSaturationMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BCB1EE1D2DB004FC890 /* MinSaturationMethod.swift */; };
+		A3FE0BCE1EE1D2F5004FC890 /* MeanMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3FE0BCD1EE1D2F5004FC890 /* MeanMethod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -23,8 +40,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		A302BA101EE1D626006B2D4D /* BlendMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlendMethod.swift; sourceTree = "<group>"; };
 		A305A0301D08278B00888112 /* image-blender */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "image-blender"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A305A0331D08278B00888112 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		A3FE0BAF1EE1C70A004FC890 /* AccumulativeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccumulativeColor.swift; sourceTree = "<group>"; };
+		A3FE0BB11EE1C734004FC890 /* Method.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Method.swift; sourceTree = "<group>"; };
+		A3FE0BB31EE1C891004FC890 /* MaxBrightnessMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxBrightnessMethod.swift; sourceTree = "<group>"; };
+		A3FE0BB51EE1CC9A004FC890 /* MinMaxMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinMaxMethod.swift; sourceTree = "<group>"; };
+		A3FE0BB71EE1D0AD004FC890 /* MinBrightnessMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinBrightnessMethod.swift; sourceTree = "<group>"; };
+		A3FE0BB91EE1D14F004FC890 /* MinRedMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinRedMethod.swift; sourceTree = "<group>"; };
+		A3FE0BBB1EE1D18E004FC890 /* MinGreenMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinGreenMethod.swift; sourceTree = "<group>"; };
+		A3FE0BBD1EE1D1C3004FC890 /* MinBlueMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinBlueMethod.swift; sourceTree = "<group>"; };
+		A3FE0BBF1EE1D1DC004FC890 /* MaxRedMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxRedMethod.swift; sourceTree = "<group>"; };
+		A3FE0BC11EE1D1F4004FC890 /* MaxGreenMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxGreenMethod.swift; sourceTree = "<group>"; };
+		A3FE0BC31EE1D207004FC890 /* MaxBlueMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxBlueMethod.swift; sourceTree = "<group>"; };
+		A3FE0BC51EE1D226004FC890 /* MaxHueMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxHueMethod.swift; sourceTree = "<group>"; };
+		A3FE0BC71EE1D299004FC890 /* MaxSaturationMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaxSaturationMethod.swift; sourceTree = "<group>"; };
+		A3FE0BC91EE1D2C2004FC890 /* MinHueMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinHueMethod.swift; sourceTree = "<group>"; };
+		A3FE0BCB1EE1D2DB004FC890 /* MinSaturationMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinSaturationMethod.swift; sourceTree = "<group>"; };
+		A3FE0BCD1EE1D2F5004FC890 /* MeanMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeanMethod.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +72,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A302BA121EE1D6BB006B2D4D /* Methods */ = {
+			isa = PBXGroup;
+			children = (
+				A3FE0BB11EE1C734004FC890 /* Method.swift */,
+				A302BA101EE1D626006B2D4D /* BlendMethod.swift */,
+				A302BA141EE1D752006B2D4D /* Accumulative Methods */,
+				A302BA131EE1D6D0006B2D4D /* Min Max Methods */,
+			);
+			name = Methods;
+			sourceTree = "<group>";
+		};
+		A302BA131EE1D6D0006B2D4D /* Min Max Methods */ = {
+			isa = PBXGroup;
+			children = (
+				A3FE0BB51EE1CC9A004FC890 /* MinMaxMethod.swift */,
+				A3FE0BC71EE1D299004FC890 /* MaxSaturationMethod.swift */,
+				A3FE0BCB1EE1D2DB004FC890 /* MinSaturationMethod.swift */,
+				A3FE0BC51EE1D226004FC890 /* MaxHueMethod.swift */,
+				A3FE0BC91EE1D2C2004FC890 /* MinHueMethod.swift */,
+				A3FE0BBF1EE1D1DC004FC890 /* MaxRedMethod.swift */,
+				A3FE0BC11EE1D1F4004FC890 /* MaxGreenMethod.swift */,
+				A3FE0BC31EE1D207004FC890 /* MaxBlueMethod.swift */,
+				A3FE0BBB1EE1D18E004FC890 /* MinGreenMethod.swift */,
+				A3FE0BBD1EE1D1C3004FC890 /* MinBlueMethod.swift */,
+				A3FE0BB91EE1D14F004FC890 /* MinRedMethod.swift */,
+				A3FE0BB31EE1C891004FC890 /* MaxBrightnessMethod.swift */,
+				A3FE0BB71EE1D0AD004FC890 /* MinBrightnessMethod.swift */,
+			);
+			name = "Min Max Methods";
+			sourceTree = "<group>";
+		};
+		A302BA141EE1D752006B2D4D /* Accumulative Methods */ = {
+			isa = PBXGroup;
+			children = (
+				A3FE0BCD1EE1D2F5004FC890 /* MeanMethod.swift */,
+			);
+			name = "Accumulative Methods";
+			sourceTree = "<group>";
+		};
+		A302BA151EE1DACE006B2D4D /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				A3FE0BAF1EE1C70A004FC890 /* AccumulativeColor.swift */,
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
 		A305A0271D08278B00888112 = {
 			isa = PBXGroup;
 			children = (
@@ -58,6 +139,8 @@
 			isa = PBXGroup;
 			children = (
 				A305A0331D08278B00888112 /* main.swift */,
+				A302BA121EE1D6BB006B2D4D /* Methods */,
+				A302BA151EE1DACE006B2D4D /* Utility */,
 			);
 			path = "image-blender";
 			sourceTree = "<group>";
@@ -120,7 +203,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3FE0BB01EE1C70A004FC890 /* AccumulativeColor.swift in Sources */,
+				A3FE0BC81EE1D299004FC890 /* MaxSaturationMethod.swift in Sources */,
+				A3FE0BC01EE1D1DC004FC890 /* MaxRedMethod.swift in Sources */,
+				A3FE0BCC1EE1D2DB004FC890 /* MinSaturationMethod.swift in Sources */,
+				A3FE0BBA1EE1D14F004FC890 /* MinRedMethod.swift in Sources */,
+				A3FE0BB41EE1C891004FC890 /* MaxBrightnessMethod.swift in Sources */,
+				A302BA111EE1D626006B2D4D /* BlendMethod.swift in Sources */,
 				A305A0341D08278B00888112 /* main.swift in Sources */,
+				A3FE0BC41EE1D207004FC890 /* MaxBlueMethod.swift in Sources */,
+				A3FE0BBE1EE1D1C3004FC890 /* MinBlueMethod.swift in Sources */,
+				A3FE0BC61EE1D226004FC890 /* MaxHueMethod.swift in Sources */,
+				A3FE0BB81EE1D0AD004FC890 /* MinBrightnessMethod.swift in Sources */,
+				A3FE0BBC1EE1D18E004FC890 /* MinGreenMethod.swift in Sources */,
+				A3FE0BCE1EE1D2F5004FC890 /* MeanMethod.swift in Sources */,
+				A3FE0BC21EE1D1F4004FC890 /* MaxGreenMethod.swift in Sources */,
+				A3FE0BB21EE1C734004FC890 /* Method.swift in Sources */,
+				A3FE0BCA1EE1D2C2004FC890 /* MinHueMethod.swift in Sources */,
+				A3FE0BB61EE1CC9A004FC890 /* MinMaxMethod.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +266,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -207,7 +307,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";

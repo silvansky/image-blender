@@ -9,62 +9,6 @@
 import Foundation
 import Cocoa
 
-enum Method : String {
-	case Min = "min"
-	case Max = "max"
-
-	case Mean = "mean"
-
-	case MinRed = "minred"
-	case MinGreen = "mingreen"
-	case MinBlue = "minblue"
-
-	case MaxRed = "maxred"
-	case MaxGreen = "maxgreen"
-	case MaxBlue = "maxblue"
-
-	case MaxHue = "maxhue"
-	case MaxSaturation = "maxsaturation"
-
-	case MinHue = "minhue"
-	case MinSaturation = "minsaturation"
-}
-
-struct AccumulativeColor {
-	var red: CGFloat
-	var green: CGFloat
-	var blue: CGFloat
-
-	init(red: CGFloat, green: CGFloat, blue: CGFloat) {
-		self.red = red
-		self.green = green
-		self.blue = blue
-	}
-
-	init(c: NSColor) {
-		self.red = c.redComponent
-		self.green = c.greenComponent
-		self.blue = c.blueComponent
-	}
-
-	mutating func append(_ c: AccumulativeColor) {
-		self.red += c.red
-		self.green += c.green
-		self.blue += c.blue
-	}
-
-	mutating func divide(_ i: Int) {
-		let c = CGFloat(i)
-		self.red /= c
-		self.green /= c
-		self.blue /= c
-	}
-
-	func color() -> NSColor {
-		return NSColor(calibratedRed: red, green: green, blue: blue, alpha: 1)
-	}
-}
-
 if CommandLine.arguments.count < 3 {
 	print("Usage: \(CommandLine.arguments[0]) input_file_list.txt output_file.png [min|max|mean|minred|mingreen|minblue|maxred|maxgreen|maxblue|minhue|minsaturation|maxhue|maxsaturation] [keep]")
 	exit(1)
@@ -125,14 +69,13 @@ guard let firstImageRep = firstImage.representations[0] as? NSBitmapImageRep els
 	exit(1)
 }
 
+var blendMethod = method.blendMethod()
+blendMethod.firstImageRep = firstImageRep
+
 let outputWidth = firstImageRep.pixelsWide
 let outputHeight = firstImageRep.pixelsHigh
 
-var accumalitiveImage = [[AccumulativeColor]]()
-
-if method == .Mean {
-	accumalitiveImage = Array(repeating: Array(repeating: AccumulativeColor(red: 0, green: 0, blue: 0), count: outputHeight), count: outputWidth)
-} else {
+if blendMethod.shouldRemoveFirstImage() {
 	imageFiles.removeFirst()
 }
 
@@ -147,58 +90,7 @@ let processPool = {
 				let currentColor = firstImageRep.colorAt(x: x, y: y)!
 				let nextColor = rep.colorAt(x: x, y: y)!
 
-				switch method {
-				case .Max:
-					if currentColor.brightnessComponent < nextColor.brightnessComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .Min:
-					if currentColor.brightnessComponent > nextColor.brightnessComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .Mean:
-					accumalitiveImage[x][y].append(AccumulativeColor(c: nextColor))
-				case .MinRed:
-					if currentColor.redComponent > nextColor.redComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .MinGreen:
-					if currentColor.greenComponent > nextColor.greenComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .MinBlue:
-					if currentColor.blueComponent > nextColor.blueComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .MaxRed:
-					if currentColor.redComponent < nextColor.redComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .MaxGreen:
-					if currentColor.greenComponent < nextColor.greenComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .MaxBlue:
-					if currentColor.blueComponent < nextColor.blueComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .MaxHue:
-					if currentColor.hueComponent < nextColor.hueComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .MaxSaturation:
-					if currentColor.saturationComponent < nextColor.saturationComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .MinHue:
-					if currentColor.hueComponent > nextColor.hueComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				case .MinSaturation:
-					if currentColor.saturationComponent > nextColor.saturationComponent {
-						firstImageRep.setColor(nextColor, atX: x, y: y)
-					}
-				}
+				blendMethod.processNextFrame(frame: rep, x: x, y: y)
 			}
 		}
 	}
@@ -229,15 +121,8 @@ for (i, imageFileName) in imageFiles.enumerated() {
 
 processPool()
 
-if method == .Mean {
-	for x in 0...outputWidth-1 {
-		for y in 0...outputHeight-1 {
-			accumalitiveImage[x][y].divide(imageFiles.count)
-			firstImageRep.setColor(accumalitiveImage[x][y].color(), atX: x, y: y)
-		}
-	}
-}
+let resultingImage = blendMethod.resultingImage()
 
-try? firstImageRep.representation(using: NSBitmapImageFileType.PNG, properties: [:])!.write(to: URL(fileURLWithPath: outputFile), options: [.atomic]);
+try? resultingImage.representation(using: NSBitmapImageFileType.PNG, properties: [:])!.write(to: URL(fileURLWithPath: outputFile), options: [.atomic]);
 
 print("Done! Resulting image saved to \(outputFile)")
