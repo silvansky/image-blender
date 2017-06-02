@@ -47,13 +47,13 @@ struct AccumulativeColor {
 		self.blue = c.blueComponent
 	}
 
-	mutating func append(c: AccumulativeColor) {
+	mutating func append(_ c: AccumulativeColor) {
 		self.red += c.red
 		self.green += c.green
 		self.blue += c.blue
 	}
 
-	mutating func divide(i: Int) {
+	mutating func divide(_ i: Int) {
 		let c = CGFloat(i)
 		self.red /= c
 		self.green /= c
@@ -65,18 +65,18 @@ struct AccumulativeColor {
 	}
 }
 
-if Process.arguments.count < 3 {
-	print("Usage: \(Process.arguments[0]) input_file_list.txt output_file.png [min|max|mean|minred|mingreen|minblue|maxred|maxgreen|maxblue|minhue|minsaturation|maxhue|maxsaturation] [keep]")
+if CommandLine.arguments.count < 3 {
+	print("Usage: \(CommandLine.arguments[0]) input_file_list.txt output_file.png [min|max|mean|minred|mingreen|minblue|maxred|maxgreen|maxblue|minhue|minsaturation|maxhue|maxsaturation] [keep]")
 	exit(1)
 }
 
-let inputFile = Process.arguments[1]
-let outputFile = Process.arguments[2]
+let inputFile = CommandLine.arguments[1]
+let outputFile = CommandLine.arguments[2]
 
 var method = Method.Max
 
-if Process.arguments.count > 3 {
-	let methodRawValue = Process.arguments[3]
+if CommandLine.arguments.count > 3 {
+	let methodRawValue = CommandLine.arguments[3]
 
 	guard let _method = Method(rawValue: methodRawValue) else {
 		print("Wrong method: \(methodRawValue)")
@@ -90,11 +90,11 @@ if Process.arguments.count > 3 {
 
 var keepIntermediateImages = false
 
-if Process.arguments.count > 4 {
-	if Process.arguments[4] == "keep" {
+if CommandLine.arguments.count > 4 {
+	if CommandLine.arguments[4] == "keep" {
 		keepIntermediateImages = true
 	} else {
-		print("Ignoring unrecognized option \(Process.arguments[4])")
+		print("Ignoring unrecognized option \(CommandLine.arguments[4])")
 	}
 }
 
@@ -102,7 +102,7 @@ var imageFiles = [String]()
 
 do {
 	let imageFileList = try String(contentsOfFile: inputFile)
-	imageFiles = imageFileList.componentsSeparatedByString("\n").filter({ s -> Bool in
+	imageFiles = imageFileList.components(separatedBy: "\n").filter({ s -> Bool in
 		return !s.isEmpty
 	})
 
@@ -131,7 +131,7 @@ let outputHeight = firstImageRep.pixelsHigh
 var accumalitiveImage = [[AccumulativeColor]]()
 
 if method == .Mean {
-	accumalitiveImage = Array(count: outputWidth, repeatedValue: Array(count: outputHeight, repeatedValue: AccumulativeColor(red: 0, green: 0, blue: 0)))
+	accumalitiveImage = Array(repeating: Array(repeating: AccumulativeColor(red: 0, green: 0, blue: 0), count: outputHeight), count: outputWidth)
 } else {
 	imageFiles.removeFirst()
 }
@@ -144,8 +144,8 @@ let processPool = {
 		for i in 0...outputWidth-1 {
 			let x = i
 			for y in 0...outputHeight-1 {
-				let currentColor = firstImageRep.colorAtX(x, y: y)!
-				let nextColor = rep.colorAtX(x, y: y)!
+				let currentColor = firstImageRep.colorAt(x: x, y: y)!
+				let nextColor = rep.colorAt(x: x, y: y)!
 
 				switch method {
 				case .Max:
@@ -206,8 +206,8 @@ let processPool = {
 	imagesPool.removeAll()
 }
 
-for (i, imageFileName) in imageFiles.enumerate() {
-	autoreleasepool({
+for (i, imageFileName) in imageFiles.enumerated() {
+	autoreleasepool(invoking: {
 		guard let nextImage = NSImage(contentsOfFile: imageFileName),
 			let nextImageRep = nextImage.representations[0] as? NSBitmapImageRep else {
 				print("Can't read image: \(imageFileName)")
@@ -219,7 +219,7 @@ for (i, imageFileName) in imageFiles.enumerate() {
 			print("Processing: \(Int(Double(i) / Double(imageFiles.count) * 100.0))% done")
 			if keepIntermediateImages {
 				let tmpOutputFile = "\(outputFile)_tmp_\(i).png"
-				firstImageRep.representationUsingType(NSBitmapImageFileType.NSPNGFileType, properties: [:])!.writeToFile(tmpOutputFile, atomically: true);
+				try? firstImageRep.representation(using: NSBitmapImageFileType.PNG, properties: [:])!.write(to: URL(fileURLWithPath: tmpOutputFile), options: [.atomic]);
 			}
 		}
 
@@ -238,6 +238,6 @@ if method == .Mean {
 	}
 }
 
-firstImageRep.representationUsingType(NSBitmapImageFileType.NSPNGFileType, properties: [:])!.writeToFile(outputFile, atomically: true);
+try? firstImageRep.representation(using: NSBitmapImageFileType.PNG, properties: [:])!.write(to: URL(fileURLWithPath: outputFile), options: [.atomic]);
 
 print("Done! Resulting image saved to \(outputFile)")
